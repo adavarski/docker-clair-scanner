@@ -1,6 +1,6 @@
 ### docker-clair-scanner
 
-This is a docker container for clair-scanner(ref:https://github.com/arminc/clair-scanner) ideal for integration into a DevSecOps pipelines.
+This is a docker container for [clair-scanner](https://github.com/arminc/clair-scanner) ideal for integration into a DevSecOps pipelines.
 
 
 Docker containers vulnerability scan
