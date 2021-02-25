@@ -3,9 +3,8 @@
 This is a docker container for [clair-scanner](https://github.com/arminc/clair-scanner) ideal for integration into a DevSecOps pipelines.
 
 
-Docker containers vulnerability scan
+#### clair-scanner: docker containers vulnerability scan
 
-Docker containers vulnerability scan
 When you work with containers (Docker) you are not only packaging your application but also part of the OS. It is crucial to know what kind of libraries might be vulnerable in your container. One way to find this information is to look at the Docker registry [Hub or Quay.io] security scan. This means your vulnerable image is already on the Docker registry.
 
 What you want is a scan as a part of CI/CD pipeline that stops the Docker image push on vulnerabilities:
@@ -18,7 +17,8 @@ What you want is a scan as a part of CI/CD pipeline that stops the Docker image 
 This straightforward process is not that easy to achieve when using the services like Docker Hub or Quay.io. This is because they work asynchronously which makes it harder to do straightforward CI/CD pipeline.
 
 Clair to the rescue
-CoreOS has created an awesome container scan tool called Clair (https://github.com/arminc/clair-scanner). Clair is also used by Quay.io. What clair does not have is a simple tool that scans your image and compares the vulnerabilities against a whitelist to see if they are approved or not.
+
+CoreOS has created an awesome container scan tool called [Clair](https://github.com/arminc/clair-scanner). Clair is also used by Quay.io. What clair does not have is a simple tool that scans your image and compares the vulnerabilities against a whitelist to see if they are approved or not.
 
 This is where clair-scanner comes into place. The clair-scanner does the following:
 
@@ -29,13 +29,13 @@ This is where clair-scanner comes into place. The clair-scanner does the followi
 
 
 
-### Build 
+#### Build docker-clair-scanner
 ```
 docker build -t davarski/docker-clair-scanner .
 docker login 
 docker push davarski/docker-clair-scanner 
 ```
-### Quick how-to
+#### Quick how-to
 ```
 docker network create scanning
 docker run -p 5432:5432 -d --net=scanning --name db arminc/clair-db:latest
@@ -51,7 +51,7 @@ docker run --net=scanning --name=scanner --link=clair:clair -v '/var/run/docker.
 docker container cp scanner:report.json ./report.json
 docker container rm scanner
 ```
-#Clean:
+#### Clean:
 ```
 docker container stop db 
 docker container stop clair 
