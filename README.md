@@ -30,29 +30,29 @@ This is where clair-scanner comes into place. The clair-scanner does the followi
 
 
 ### Build 
-
+```
 docker build -t davarski/docker-clair-scanner .
 docker login 
 docker push davarski/docker-clair-scanner 
-
+```
 ### Quick how-to
-
+```
 docker network create scanning
 docker run -p 5432:5432 -d --net=scanning --name db arminc/clair-db:latest
 docker run -p 6060:6060  --net=scanning --link db:postgres -d --name clair arminc/clair-local-scan:latest
 docker run --net=scanning --rm --name=scanner --link=clair:clair -v '/var/run/docker.sock:/var/run/docker.sock'  davarski/docker-clair-scanner --clair="http://clair:6060" --ip="scanner" -t Medium <local-image-to-scan>
-
+```
 #### Example with generated json report and date formated
- 
+```
 docker network create scanning
 docker run -p 5432:5432 -d --net=scanning --name db arminc/clair-db:latest
 docker run -p 6060:6060  --net=scanning --link db:postgres -d --name clair arminc/clair-local-scan:latest
 docker run --net=scanning --name=scanner --link=clair:clair -v '/var/run/docker.sock:/var/run/docker.sock'  davarski/docker-clair-scanner --clair="http://clair:6060" --ip="scanner" -t Medium -r report.json <local-image-to-scan>
 docker container cp scanner:report.json ./report.json
 docker container rm scanner
-
+```
 #Clean:
-
+```
 docker container stop db 
 docker container stop clair 
 docker container rm db 
@@ -60,4 +60,4 @@ docker container rm clair
 docker network rm scanning 
 docker container prune -f 
 docker image prune -f 
-
+```
