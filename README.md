@@ -61,3 +61,4 @@ docker network rm scanning
 docker container prune -f 
 docker image prune -f 
 ```
+Example DevSecOps J.Pipeline: Jenkinsfile
